@@ -3,16 +3,19 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 
 import { HSLColor, RGBColor } from '../types/types'
-import ColorSwatch from '../components/ColorSwatch'
+import { ColorSwatch, Spinner } from '../components'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
     const [colors, setColors] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const fetchColors = async () => {
+        setLoading(true)
         const response = await fetch('/api/colors')
         const data = await response.json()
         setColors(data.colors)
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -49,7 +52,9 @@ const Home: NextPage = () => {
                     *Click on color box to copy the color code.
                 </p>
 
-                {colors.map((color: RGBColor | HSLColor, index) => (
+                {loading && <Spinner />}
+
+                {!loading && colors.map((color: RGBColor | HSLColor, index) => (
                     <ColorSwatch
                         key={index}
                         color={{ ...color, code: generateColorCode(color) }}
