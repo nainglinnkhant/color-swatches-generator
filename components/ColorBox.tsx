@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 
 import { HSLColorCode } from '../types/types'
 import { HSLToRGB } from '../utils/utilities'
@@ -9,6 +9,8 @@ interface Props {
     index: number
     boxCount: number
 }
+
+let timeout: ReturnType<typeof setTimeout>
 
 const ColorBox = ({ hslColor, index, boxCount }: Props) => {
     const { hue, saturation, lightness } = hslColor
@@ -29,9 +31,13 @@ const ColorBox = ({ hslColor, index, boxCount }: Props) => {
 
     const copyToClipboard = () => {
         setShowTooltip(true)
-        setTimeout(() => setShowTooltip(false), 1500)
+        timeout = setTimeout(() => setShowTooltip(false), 1500)
         navigator.clipboard.writeText(generateDisplayCode(hslColor))
     }
+
+    useEffect(() => {
+        return () => clearTimeout(timeout)
+    }, [])
 
     return (
         <div className={styles['color-box-container']}>
