@@ -28,11 +28,3 @@ export interface RGBColor extends RGB {
 export interface HSLColor extends HSL {
     type: string
 }
-
-export interface RGBColorCode extends RGBColor {
-    code: string
-}
-
-export interface HSLColorCode extends HSLColor {
-    code: string
-}

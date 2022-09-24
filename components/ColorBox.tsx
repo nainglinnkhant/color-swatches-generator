@@ -1,38 +1,29 @@
-import { MutableRefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { HSLColorCode } from '../types/types'
-import { HSLToRGB } from '../utils/utilities'
+import { HSL } from '../types/types'
 import styles from '../styles/Home.module.css'
 
 interface Props {
-    hslColor: HSLColorCode
+    hslColor: HSL
     index: number
     boxCount: number
+    colorCode: string
 }
 
 let timeout: ReturnType<typeof setTimeout>
 
-const ColorBox = ({ hslColor, index, boxCount }: Props) => {
+const ColorBox = ({ hslColor, index, boxCount, colorCode }: Props) => {
     const { hue, saturation, lightness } = hslColor
     const [showTooltip, setShowTooltip] = useState(false)
 
     const newLightness = lightness >= 60 ? lightness - (index * 8) : lightness + (index * 8)
 
-    const colorCode = `hsl(${hue}, ${saturation}%, ${newLightness}%)`
-
-    const generateDisplayCode: any = (color: HSLColorCode) => {
-        switch (color.type) {
-            case 'rgb':
-                return HSLToRGB(hue, saturation, newLightness, 'string')
-            default:
-                return colorCode
-        }
-    }
+    const hslColorCode = `hsl(${hue}, ${saturation}%, ${newLightness}%)`
 
     const copyToClipboard = () => {
         setShowTooltip(true)
         timeout = setTimeout(() => setShowTooltip(false), 1500)
-        navigator.clipboard.writeText(generateDisplayCode(hslColor))
+        navigator.clipboard.writeText(colorCode)
     }
 
     useEffect(() => {
@@ -42,14 +33,14 @@ const ColorBox = ({ hslColor, index, boxCount }: Props) => {
     return (
         <div className={styles['color-box-container']}>
             <p className={styles['color-text']}>
-                {generateDisplayCode(hslColor)}
+                {colorCode}
             </p>
 
             <div
                 onClick={copyToClipboard}
                 className={styles['color-box']}
                 style={{
-                    backgroundColor: colorCode,
+                    backgroundColor: hslColorCode,
                     maxWidth: '100px',
                     height: '100px',
                     borderTopLeftRadius: index === 0 ? 10 : 0,

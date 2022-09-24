@@ -22,17 +22,6 @@ const Home: NextPage = () => {
         fetchColors()
     }, [])
 
-    const generateColorCode = (color: any) => {
-        switch (color.type) {
-            case 'rgb':
-                return `rgb(${color.red}, ${color.green}, ${color.blue})`
-            case 'hsl':
-                return `hsl(${color.hue}, ${color.saturation}%, ${color.lightness}%)`
-            default:
-                return `rgb(${color.red}, ${color.green}, ${color.blue})`
-        }
-    }
-
     return (
         <div className={styles.container}>
             <Head>
@@ -57,7 +46,7 @@ const Home: NextPage = () => {
                 {!loading && colors.map((color: RGBColor | HSLColor, index) => (
                     <ColorSwatch
                         key={index}
-                        color={{ ...color, code: generateColorCode(color) }}
+                        color={color}
                     />
                 ))}
             </main>

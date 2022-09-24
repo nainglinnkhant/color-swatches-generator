@@ -1,19 +1,29 @@
-import { HSL, HSLColorCode, RGBColorCode } from '../types/types'
+import { RGB, HSL } from '../types/types'
 import ColorBox from './ColorBox'
 import { RGBToHSL } from '../utils/utilities'
 
 interface Props {
-    color: RGBColorCode | HSLColorCode
+    color: RGB | HSL
 }
 
 const ColorSwatch = ({ color }: Props) => {
+    const generateColorCode = (color: any) => {
+        switch (color.type) {
+            case 'rgb':
+                return `rgb(${color.red}, ${color.green}, ${color.blue})`
+            case 'hsl':
+                return `hsl(${color.hue}, ${color.saturation}%, ${color.lightness}%)`
+            default:
+                return `rgb(${color.red}, ${color.green}, ${color.blue})`
+        }
+    }
+
     const convertToHSL = (color: any) => {
         switch (color.type) {
             case 'rgb':
-                const hslColorCodes: HSL | string = RGBToHSL(color.red, color.green, color.blue, 'object')
+                const hslColorFields: HSL | string = RGBToHSL(color.red, color.green, color.blue, 'object')
 
-                if (typeof hslColorCodes === 'string') return { ...color, hslColorCodes }
-                return { ...color, ...hslColorCodes }
+                return hslColorFields
             default:
                 return color
         }
@@ -28,6 +38,7 @@ const ColorSwatch = ({ color }: Props) => {
                     key={index}
                     index={index}
                     boxCount={arr.length}
+                    colorCode={generateColorCode(color)}
                     hslColor={convertToHSL(color)}
                 />
             ))}
