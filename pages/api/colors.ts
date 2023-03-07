@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { ColorObject, HSLColor, RGBColor } from '../../types/types'
+import { Color, ColorObject } from '../../types/types'
 
 export default function handler(
     req: NextApiRequest,
-    res: NextApiResponse<{colors: (RGBColor | HSLColor)[]}>,
+    res: NextApiResponse<{colors: Color[]}>,
 ) {
     const colorFormats = [
         {
@@ -31,7 +31,7 @@ export default function handler(
         return colorFormats[type]
     }
 
-    const generateColor = ({ type, fields }: ColorObject): RGBColor | HSLColor => {
+    const generateColor = ({ type, fields }: ColorObject): Color => {
         const requiredFieldsObjs = fields.map(field => ({
             [field.name]: getRandomInt(field.min, field.max)
         }))

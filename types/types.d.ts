@@ -9,22 +9,18 @@ export interface ColorObject {
     fields: ColorFields[]
 }
 
-export interface RGB {
+export interface RGBColor {
+    type: 'rgb'
     red: number
     green: number
     blue: number
 }
 
-export interface HSL {
+export interface HSLColor {
+    type: 'hsl'
     hue: number
     saturation: number
     lightness: number
 }
 
-export interface RGBColor extends RGB {
-    type: string
-}
-
-export interface HSLColor extends HSL {
-    type: string
-}
+export type Color = RGBColor | HSLColor

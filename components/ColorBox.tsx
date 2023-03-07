@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { HSL } from '../types/types'
+import { HSLColor } from '../types/types'
 import styles from '../styles/Home.module.css'
 
 interface Props {
-    hslColor: HSL
+    hslColor: HSLColor
     index: number
     boxCount: number
     colorCode: string

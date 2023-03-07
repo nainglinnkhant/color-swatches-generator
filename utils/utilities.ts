@@ -1,4 +1,6 @@
-export function RGBToHSL(red: number, green: number, blue: number, type = 'object') {
+import { HSLColor } from '../types/types'
+
+export function RGBToHSL(red: number, green: number, blue: number): HSLColor {
     // Make r, g, and b fractions of 1
     let r = red / 255,
         g = green / 255,
@@ -40,9 +42,8 @@ export function RGBToHSL(red: number, green: number, blue: number, type = 'objec
     s = +(s * 100).toFixed(1)
     l = +(l * 100).toFixed(1)
 
-    if (type === 'string') return `hsl(${h}, ${s}%, ${l}%)`
-
     return {
+        type: 'hsl',
         hue: h,
         saturation: s,
         lightness: l,

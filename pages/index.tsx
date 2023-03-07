@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
-import { HSLColor, RGBColor } from '../types/types'
+import { Color } from '../types/types'
 import { ColorSwatch, Spinner } from '../components'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-    const [colors, setColors] = useState([])
+    const [colors, setColors] = useState<Color[]>([])
     const [loading, setLoading] = useState(true)
 
     const fetchColors = async () => {
         setLoading(true)
         const response = await fetch('/api/colors')
-        const data = await response.json()
+        const data: Awaited<Promise<{colors: Color[]}>> = await response.json()
         setColors(data.colors)
         setLoading(false)
     }
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
 
                 {loading && <Spinner />}
 
-                {!loading && colors.map((color: RGBColor | HSLColor, index) => (
+                {!loading && colors.map((color, index) => (
                     <ColorSwatch
                         key={index}
                         color={color}
