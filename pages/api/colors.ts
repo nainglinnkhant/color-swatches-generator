@@ -31,12 +31,12 @@ export default function handler(
         return colorFormats[type]
     }
 
-    const generateColor = ({ type, fields }: ColorObject): Color => {
+    const generateColor = ({ type, fields }: ColorObject) => {
         const requiredFieldsObjs = fields.map(field => ({
             [field.name]: getRandomInt(field.min, field.max)
         }))
         // const requiredFields = Object.assign(...requiredFieldsObjs)
-        const requiredFields: any = requiredFieldsObjs.reduce(
+        const requiredFields = requiredFieldsObjs.reduce(
             (acc, field) => ({ ...acc, ...field }),
             {}
         )
@@ -44,7 +44,7 @@ export default function handler(
         return {
             type,
             ...requiredFields,
-        }
+        } as Color
     }
 
     const formats = new Array(5).fill(0).map(() => generateColorFormat())
