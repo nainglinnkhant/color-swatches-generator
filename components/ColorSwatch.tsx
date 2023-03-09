@@ -1,6 +1,6 @@
-import { Color } from '../types/types'
+import type { Color } from 'types/types'
 import ColorBox from './ColorBox'
-import { RGBToHSL } from '../utils/utilities'
+import { RGBToHSL } from 'utils/utilities'
 
 interface Props {
     color: Color

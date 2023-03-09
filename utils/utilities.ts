@@ -1,4 +1,4 @@
-import { HSLColor } from '../types/types'
+import type { HSLColor } from 'types/types'
 
 export function RGBToHSL(red: number, green: number, blue: number): HSLColor {
     // Make r, g, and b fractions of 1

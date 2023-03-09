@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
-import { Color } from '../types/types'
-import { ColorSwatch, Spinner } from '../components'
-import styles from '../styles/Home.module.css'
+import type { Color } from 'types/types'
+import { ColorSwatch, Spinner } from 'components'
+import styles from 'styles/Home.module.css'
 
 const Home: NextPage = () => {
     const [colors, setColors] = useState<Color[]>([])

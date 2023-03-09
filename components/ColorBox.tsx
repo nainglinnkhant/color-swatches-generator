@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { HSLColor } from '../types/types'
-import styles from '../styles/Home.module.css'
+import type { HSLColor } from 'types/types'
+import styles from 'styles/Home.module.css'
 
 interface Props {
     hslColor: HSLColor

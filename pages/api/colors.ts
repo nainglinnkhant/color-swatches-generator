@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Color, ColorObject } from '../../types/types'
+
+import { Color, ColorObject } from 'types/types'
 
 export default function handler(
     req: NextApiRequest,
